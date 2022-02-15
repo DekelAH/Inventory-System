@@ -12,6 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0ed2b918bd8b643af6a8987055277f, type: 3}
   m_Name: Player Model
   m_EditorClassIdentifier: 
-  _health: 20
-  _mana: 25
+  _health: 40
+  _mana: 55
   _armour: 10
+  _inventoryItems:
+  - {fileID: 11400000, guid: 6ad7ed1de7d499e4f9f2981b18967462, type: 2}
+  - {fileID: 11400000, guid: 63400682ea4594a45a700735bba3070e, type: 2}
+  - {fileID: 11400000, guid: 541d83d8def8b1a40bb00cb2836e6d93, type: 2}
+  - {fileID: 11400000, guid: ea9ac56502be5c245969af13d3bec7c1, type: 2}
+  - {fileID: 11400000, guid: b8fe0ea083f7ef6448a04384ce6b0409, type: 2}
+  - {fileID: 11400000, guid: 0c0cc9887630974489315dec091d7e27, type: 2}
+  - {fileID: 11400000, guid: 09f0a4aab09ab2c44837fe19f0f19ef4, type: 2}
+  - {fileID: 11400000, guid: e504813425d614d42ae683f595a9aab1, type: 2}
+  _equipedRightWeapon: {fileID: 0}
+  _equipedLeftWeapon: {fileID: 0}
+  _equipedArmour: {fileID: 0}
+  _equipedHelmet: {fileID: 0}
+  _equipedGloves: {fileID: 0}
+  _equipedBoots: {fileID: 0}
+  _equipedBelt: {fileID: 0}
+  _equipedAmuletOne: {fileID: 0}
+  _equipedAmuletTwo: {fileID: 0}
+  _equipedAmuletThree: {fileID: 0}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Models;
+using System;
 using UnityEngine;
 
 namespace Assets.Models
@@ -24,8 +25,39 @@ namespace Assets.Models
         [SerializeField]
         private int _armour;
 
-        //[SerializeField]
-        //private InventoryItemModel[] _inventoryItems;
+        [SerializeField]
+        private InventoryItemModel[] _inventoryItems;
+
+        [SerializeField]
+        private InventoryItemModel _equipedRightWeapon;
+
+        [SerializeField]
+        private InventoryItemModel _equipedLeftWeapon;
+
+        [SerializeField]
+        private InventoryItemModel _equipedArmour;
+
+        [SerializeField]
+        private InventoryItemModel _equipedHelmet;
+
+        [SerializeField]
+        private InventoryItemModel _equipedGloves;
+
+        [SerializeField]
+        private InventoryItemModel _equipedBoots;
+
+        [SerializeField]
+        private InventoryItemModel _equipedBelt;
+
+        [SerializeField]
+        private InventoryItemModel _equipedAmuletOne;
+
+        [SerializeField]
+        private InventoryItemModel _equipedAmuletTwo;
+
+        [SerializeField]
+        private InventoryItemModel _equipedAmuletThree;
+
 
         #endregion
 
@@ -71,6 +103,7 @@ namespace Assets.Models
 
         public int GetHealth => _health;
         public int GetMana => _mana;
+        public InventoryItemModel[] InventoryItems => _inventoryItems;
 
         #endregion
     }
