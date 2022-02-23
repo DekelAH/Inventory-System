@@ -24,6 +24,18 @@ namespace Assets.Scripts.View
         private InventoryItemBtn _weaponItemBtnPrefabRef;
 
         [SerializeField]
+        private InventoryItemBtn _bootsItemBtnPrefabRef;
+
+        [SerializeField]
+        private InventoryItemBtn _beltItemBtnPrefabRef;
+
+        [SerializeField]
+        private InventoryItemBtn _glovesItemBtnPrefabRef;
+
+        [SerializeField]
+        private InventoryItemBtn _helmetItemBtnPrefabRef;
+
+        [SerializeField]
         private RectTransform _parentRectTranform;
 
         [SerializeField]
@@ -64,7 +76,7 @@ namespace Assets.Scripts.View
                 var inventoryButton = Instantiate(buttonPrefabRef, _parentRectTranform);
                 inventoryButton.SetUpItemBtn(inventoryItemModel);
                 inventoryButton.BtnClicked += OnInventorybtnClicked;
-                        }
+             }   
         }
 
         private void OnInventorybtnClicked(InventoryItemBtn btnSended, InventoryItemModel inventoryItemModel)
@@ -90,6 +102,14 @@ namespace Assets.Scripts.View
                     return _armourItemBtnPrefabRef;
                 case ItemType.Jewelry:
                     return _jewelryItemBtnPrefabRef;
+                case ItemType.Helmet:
+                    return _helmetItemBtnPrefabRef;
+                case ItemType.Boots:
+                    return _bootsItemBtnPrefabRef;
+                case ItemType.Belt:
+                    return _beltItemBtnPrefabRef;
+                case ItemType.Gloves:
+                    return _glovesItemBtnPrefabRef;
                 default:
                     throw new ArgumentException($"Item type {type} is not supported");
             }

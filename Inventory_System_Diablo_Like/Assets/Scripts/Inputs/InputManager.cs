@@ -34,7 +34,7 @@ namespace Assets.Scripts.Inputs
         private const string DECREASE_MANA_KEY = "]";
 
         private const KeyCode OPEN_INVENTORY = KeyCode.I;
-        private const KeyCode ADD_RANDOM_ITEMS = KeyCode.Space;
+        private const KeyCode ADD_RANDOM_ITEM = KeyCode.Space;
         private const string QUICK_ACCESS_SLOT_ONE = "1";
         private const string QUICK_ACCESS_SLOT_TWO = "2";
         private const string QUICK_ACCESS_SLOT_THREE = "3";
@@ -49,6 +49,7 @@ namespace Assets.Scripts.Inputs
             HealthHandler();
             ManaHandler();
             InventoryAreaHandler();
+            EquipRandomItemToInventoryArea();
         }
 
         private PlayerModel SetPlayerModel()
@@ -84,19 +85,21 @@ namespace Assets.Scripts.Inputs
                 playerModel.DecreaseMana(_manaToTake);
             }
         }
-        private void AddRandomItemToInventory()
-        {
-            if (Input.GetKeyDown(ADD_RANDOM_ITEMS))
-            {
-
-            }
-        }
 
         private void InventoryAreaHandler()
         {
             if (Input.GetKeyDown(OPEN_INVENTORY))
             {
                 _inventoryWindow.gameObject.SetActive(!_inventoryWindow.gameObject.activeSelf);
+            }
+        }
+
+        private void EquipRandomItemToInventoryArea()
+        {
+            if (Input.GetKeyDown(ADD_RANDOM_ITEM))
+            {
+                var playerModel = SetPlayerModel();
+                playerModel.EquipRandomItemFromStash();
             }
         }
 

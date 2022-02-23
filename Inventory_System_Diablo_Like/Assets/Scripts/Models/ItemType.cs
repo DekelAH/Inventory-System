@@ -11,6 +11,10 @@ namespace Assets.Scripts.Models
         Consumable,
         Weapon,
         Armour,
+        Helmet,
+        Boots,
+        Belt,
+        Gloves,
         Jewelry
     }
 }

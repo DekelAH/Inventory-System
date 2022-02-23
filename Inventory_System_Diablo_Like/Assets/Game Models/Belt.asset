@@ -16,4 +16,4 @@ MonoBehaviour:
   _name: Belt
   _parameter: 10
   _cost: 30
-  _type: 2
+  _type: 5

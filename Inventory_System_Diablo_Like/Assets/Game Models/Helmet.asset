@@ -16,4 +16,4 @@ MonoBehaviour:
   _name: Helmet
   _parameter: 15
   _cost: 120
-  _type: 2
+  _type: 3

@@ -16,4 +16,4 @@ MonoBehaviour:
   _name: Boots
   _parameter: 15
   _cost: 100
-  _type: 2
+  _type: 4
