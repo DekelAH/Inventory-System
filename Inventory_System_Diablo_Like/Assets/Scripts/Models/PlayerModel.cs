@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Models;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Models
@@ -11,6 +12,8 @@ namespace Assets.Models
 
         public event Action<int> HealthChanged;
         public event Action<int> ManaChanged;
+        public event Action<int> ArmourChanged;
+
         public event Action<InventoryItemModel> HelmetEquiped;
         public event Action<InventoryItemModel> ArmourEquiped;
         public event Action<InventoryItemModel> WeaponLeftEquiped;
@@ -20,6 +23,11 @@ namespace Assets.Models
         public event Action<InventoryItemModel> GlovesEquiped;
         public event Action<InventoryItemModel> AmuletOneEquiped;
         public event Action<InventoryItemModel> AmuletTwoEquiped;
+
+        public event Action<InventoryItemModel> ConsumableItemOneEquiped;
+        public event Action<InventoryItemModel> ConsumableItemTwoEquiped;
+        public event Action<InventoryItemModel> ConsumableItemThreeEquiped;
+        public event Action<InventoryItemModel> ConsumableItemFourEquiped;
 
         #endregion
 
@@ -34,8 +42,10 @@ namespace Assets.Models
         [SerializeField]
         private int _armour;
 
+
         [SerializeField]
-        private InventoryItemModel[] _inventoryItems;
+        private List<InventoryItemModel> _stashItems;
+
 
         [SerializeField]
         private InventoryItemModel _equipedRightWeapon;
@@ -64,9 +74,45 @@ namespace Assets.Models
         [SerializeField]
         private InventoryItemModel _equipedAmuletTwo;
 
+
+        [SerializeField]
+        private InventoryItemModel _cosumableItemOne;
+
+        [SerializeField]
+        private InventoryItemModel _cosumableItemTwo;
+
+        [SerializeField]
+        private InventoryItemModel _cosumableItemThree;
+
+        [SerializeField]
+        private InventoryItemModel _cosumableItemFour;
+
+        #endregion
+
+        #region Fields
+
+        private List<InventoryItemModel> _consumableItems;
+
         #endregion
 
         #region Methods
+
+        public void RestartEquipedItems()
+        {
+            _equipedRightWeapon = null;
+            _equipedLeftWeapon = null;
+            _equipedArmour = null;
+            _equipedHelmet = null;
+            _equipedGloves = null;
+            _equipedBoots = null;
+            _equipedBelt = null;
+            _equipedAmuletOne = null;
+            _equipedAmuletTwo = null;
+            _cosumableItemOne = null;
+            _cosumableItemTwo = null;
+            _cosumableItemThree = null;
+            _cosumableItemFour = null;
+        }
 
         public void IncreaseHealth(int health)
         {
@@ -99,7 +145,7 @@ namespace Assets.Models
             else
             {
                 Debug.Log("Not Enough Mana!");
-            }          
+            }
         }
 
         public void EquipRandomItemFromStash()
@@ -107,68 +153,73 @@ namespace Assets.Models
             for (int i = 0; i < 9; i++)
             {
                 System.Random random = new System.Random();
-                var randomItem = random.Next(_inventoryItems.Length);
+                var randomItemIndex = random.Next(_stashItems.Count);
 
-                switch (_inventoryItems[randomItem].Type)
+                switch (_stashItems[randomItemIndex].Type)
                 {
                     case ItemType.Weapon:
                         if (_equipedLeftWeapon == null)
                         {
-                            _equipedLeftWeapon = _inventoryItems[randomItem];
+                            _equipedLeftWeapon = _stashItems[randomItemIndex];
                             WeaponLeftEquiped?.Invoke(_equipedLeftWeapon);
                             return;
                         }
                         else if (_equipedRightWeapon == null)
                         {
-                            _equipedRightWeapon = _inventoryItems[randomItem];
+                            _equipedRightWeapon = _stashItems[randomItemIndex];
                             WeaponRightEquiped?.Invoke(_equipedRightWeapon);
                         }
                         break;
                     case ItemType.Armour:
                         if (_equipedArmour == null)
                         {
-                            _equipedArmour = _inventoryItems[randomItem];
+                            _equipedArmour = _stashItems[randomItemIndex];
                             ArmourEquiped?.Invoke(_equipedArmour);
+                            ArmourChanged?.Invoke(_armour += _equipedArmour.Parameter);
                         }
                         break;
                     case ItemType.Helmet:
                         if (_equipedHelmet == null)
                         {
-                            _equipedHelmet = _inventoryItems[randomItem];
+                            _equipedHelmet = _stashItems[randomItemIndex];
                             HelmetEquiped?.Invoke(_equipedHelmet);
+                            ArmourChanged?.Invoke(_armour += _equipedHelmet.Parameter);
                         }
                         break;
                     case ItemType.Boots:
                         if (_equipedBoots == null)
                         {
-                            _equipedBoots = _inventoryItems[randomItem];
+                            _equipedBoots = _stashItems[randomItemIndex];
                             BootsEquiped?.Invoke(_equipedBoots);
+                            ArmourChanged?.Invoke(_armour += _equipedBoots.Parameter);
                         }
                         break;
                     case ItemType.Belt:
                         if (_equipedBelt == null)
                         {
-                            _equipedBelt = _inventoryItems[randomItem];
+                            _equipedBelt = _stashItems[randomItemIndex];
                             BeltEquiped?.Invoke(_equipedBelt);
+                            ArmourChanged?.Invoke(_armour += _equipedBelt.Parameter);
                         }
                         break;
                     case ItemType.Gloves:
                         if (_equipedGloves == null)
                         {
-                            _equipedGloves = _inventoryItems[randomItem];
+                            _equipedGloves = _stashItems[randomItemIndex];
                             GlovesEquiped?.Invoke(_equipedGloves);
+                            ArmourChanged?.Invoke(_armour += _equipedGloves.Parameter);
                         }
                         break;
                     case ItemType.Jewelry:
                         if (_equipedAmuletOne == null)
                         {
-                            _equipedAmuletOne = _inventoryItems[randomItem];
+                            _equipedAmuletOne = _stashItems[randomItemIndex];
                             AmuletOneEquiped?.Invoke(_equipedAmuletOne);
                             return;
                         }
                         else if (_equipedAmuletTwo == null)
                         {
-                            _equipedAmuletTwo = _inventoryItems[randomItem];
+                            _equipedAmuletTwo = _stashItems[randomItemIndex];
                             AmuletTwoEquiped?.Invoke(_equipedAmuletTwo);
                         }
                         break;
@@ -178,13 +229,140 @@ namespace Assets.Models
             }
         }
 
+        public void SetConsumableItemsList()
+        {
+            foreach (var item in _stashItems)
+            {
+                switch (item.Type)
+                {
+                    case ItemType.Consumable:
+                        _consumableItems.Add(item);
+                        break;
+                }
+            }
+        }
+
+        public void EquipQuickAccessSlotOne()
+        {
+            var randomConsumableItemIndex = ReturnRandomConsumableItemIndex();
+
+            if (_cosumableItemOne == null)
+            {
+                _cosumableItemOne = _consumableItems[randomConsumableItemIndex];
+                if (_cosumableItemOne.Name == "Mana")
+                {
+                    _mana += _cosumableItemOne.Parameter;
+                }
+                else if (_cosumableItemOne.Name == "Hp")
+                {
+                    _health += _cosumableItemOne.Parameter;
+                }
+
+                ConsumableItemOneEquiped?.Invoke(_cosumableItemOne);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void EquipQuickAccessSlotTwo()
+        {
+            var randomConsumableItemIndex = ReturnRandomConsumableItemIndex();
+
+            if (_cosumableItemTwo == null)
+            {
+                _cosumableItemTwo = _consumableItems[randomConsumableItemIndex];
+                if (_cosumableItemTwo.Name == "Mana")
+                {
+                    _mana += _cosumableItemTwo.Parameter;
+                }
+                else if (_cosumableItemTwo.Name == "Hp")
+                {
+                    _health += _cosumableItemTwo.Parameter;
+                }
+
+                ConsumableItemTwoEquiped?.Invoke(_cosumableItemTwo);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void EquipQuickAccessSlotThree()
+        {
+            var randomConsumableItemIndex = ReturnRandomConsumableItemIndex();
+
+            if (_cosumableItemThree == null)
+            {
+                _cosumableItemThree = _consumableItems[randomConsumableItemIndex];
+                if (_cosumableItemThree.Name == "Mana")
+                {
+                    _mana += _cosumableItemThree.Parameter;
+                }
+                else if (_cosumableItemThree.Name == "Hp")
+                {
+                    _health += _cosumableItemThree.Parameter;
+                }
+
+                ConsumableItemThreeEquiped?.Invoke(_cosumableItemThree);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void EquipQuickAccessSlotFour()
+        {
+            var randomConsumableItemIndex = ReturnRandomConsumableItemIndex();
+
+            if (_cosumableItemFour == null)
+            {
+                _cosumableItemFour = _consumableItems[randomConsumableItemIndex];
+                if (_cosumableItemFour.Name == "Mana")
+                {
+                    _mana += _cosumableItemFour.Parameter;
+                }
+                else if (_cosumableItemFour.Name == "Hp")
+                {
+                    _health += _cosumableItemFour.Parameter;
+                }
+
+                ConsumableItemFourEquiped?.Invoke(_cosumableItemFour);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private int ReturnRandomConsumableItemIndex()
+        {
+            System.Random random = new System.Random();
+            var randomConsumableItemIndex = random.Next(_consumableItems.Count);
+
+            return randomConsumableItemIndex;
+        }
+
         #endregion
 
         #region Properties
 
         public int GetHealth => _health;
         public int GetMana => _mana;
-        public InventoryItemModel[] InventoryItems => _inventoryItems;
+        public int GetArmour => _armour;
+        public List<InventoryItemModel> StashItems => _stashItems;
+        public InventoryItemModel EquipedRightWeapon => _equipedRightWeapon;
+        public InventoryItemModel EquipedLeftWeapon => _equipedLeftWeapon;
+        public InventoryItemModel EquipedArmour => _equipedArmour;
+        public InventoryItemModel EquipedHelmet => _equipedHelmet;
+        public InventoryItemModel EquipedGloves => _equipedGloves;
+        public InventoryItemModel EquipedBoots => _equipedBoots;
+        public InventoryItemModel EquipedBelt => _equipedBelt;
+        public InventoryItemModel EquipedAmuletOne => _equipedAmuletOne;
+        public InventoryItemModel EquipedAmuletTwo => _equipedAmuletTwo;
 
         #endregion
     }

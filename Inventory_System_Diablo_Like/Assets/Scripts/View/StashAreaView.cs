@@ -46,10 +46,7 @@ namespace Assets.Scripts.View
         #region Fields
 
         private InventoryItemBtn _currentSelectedBtn;
-
-        private InventoryItemModel _currentSelectedItem;
-
-        private List<InventoryItemBtn> _createdBtns = new List<InventoryItemBtn>();
+        private readonly List<InventoryItemBtn> _createdBtns = new List<InventoryItemBtn>();
 
         #endregion
 
@@ -70,7 +67,7 @@ namespace Assets.Scripts.View
 
         private void CreatedItemsList()
         {
-            foreach (var inventoryItemModel in _playerModel.InventoryItems)
+            foreach (var inventoryItemModel in _playerModel.StashItems)
             {
                 var buttonPrefabRef = (InventoryItemBtn)GetButtonPrefabByItemType(inventoryItemModel.Type);
                 var inventoryButton = Instantiate(buttonPrefabRef, _parentRectTranform);

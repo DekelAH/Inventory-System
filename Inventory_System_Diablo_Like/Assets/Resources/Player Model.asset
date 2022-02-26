@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0ed2b918bd8b643af6a8987055277f, type: 3}
   m_Name: Player Model
   m_EditorClassIdentifier: 
-  _health: 40
-  _mana: 55
-  _armour: 10
-  _inventoryItems:
+  _health: 20
+  _mana: 20
+  _armour: 0
+  _stashItems:
   - {fileID: 11400000, guid: cee695722cbdf7748ad2d7cbce066295, type: 2}
   - {fileID: 11400000, guid: 6ad7ed1de7d499e4f9f2981b18967462, type: 2}
   - {fileID: 11400000, guid: 63400682ea4594a45a700735bba3070e, type: 2}
@@ -26,7 +26,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 09f0a4aab09ab2c44837fe19f0f19ef4, type: 2}
   - {fileID: 11400000, guid: 1de702c4fe3c5ab4f89636ff8a436778, type: 2}
   - {fileID: 11400000, guid: e504813425d614d42ae683f595a9aab1, type: 2}
-  - {fileID: 11400000, guid: f07b2e7fb0c455942a996148ad18a622, type: 2}
   _equipedRightWeapon: {fileID: 0}
   _equipedLeftWeapon: {fileID: 0}
   _equipedArmour: {fileID: 0}
@@ -36,3 +35,7 @@ MonoBehaviour:
   _equipedBelt: {fileID: 0}
   _equipedAmuletOne: {fileID: 0}
   _equipedAmuletTwo: {fileID: 0}
+  _cosumableItemOne: {fileID: 0}
+  _cosumableItemTwo: {fileID: 0}
+  _cosumableItemThree: {fileID: 0}
+  _cosumableItemFour: {fileID: 0}

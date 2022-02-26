@@ -45,6 +45,7 @@ namespace Assets.Scripts.View
         private void Start()
         {
             InitializeView();
+            UpdateInventoryArea();
         }
 
         private void Update()
@@ -58,14 +59,25 @@ namespace Assets.Scripts.View
             playerModel.HelmetEquiped -= OnHelmetEquiped;
         }
 
-        private void InitializeView() 
-        { 
+        private void InitializeView()
+        {
+            var playerModel = SetPlayerModel();
 
+            _helmetImage.sprite = playerModel.EquipedHelmet.Preview;
+            _armourImage.sprite = playerModel.EquipedArmour.Preview;
+            _bootsImage.sprite = playerModel.EquipedBoots.Preview;
+            _beltImage.sprite = playerModel.EquipedBelt.Preview;
+            _glovesImage.sprite = playerModel.EquipedGloves.Preview;
+            _rightWeaponImage.sprite = playerModel.EquipedRightWeapon.Preview;
+            _leftWeaponImage.sprite = playerModel.EquipedLeftWeapon.Preview;
+            _amuletOneImage.sprite = playerModel.EquipedAmuletOne.Preview;
+            _amuletTwoImage.sprite = playerModel.EquipedAmuletTwo.Preview;
         }
 
         private void UpdateInventoryArea()
         {
             var playerModel = SetPlayerModel();
+
             playerModel.HelmetEquiped += OnHelmetEquiped;
             playerModel.ArmourEquiped += OnArmourEquiped;
             playerModel.BootsEquiped += OnBootsEquiped;
@@ -75,6 +87,7 @@ namespace Assets.Scripts.View
             playerModel.WeaponRightEquiped += OnWeaponRightEquiped;
             playerModel.AmuletOneEquiped += OnAmuletOneEquiped;
             playerModel.AmuletTwoEquiped += OnAmuletTwoEquiped;
+
         }
 
         private void OnAmuletTwoEquiped(InventoryItemModel amuletTwo)

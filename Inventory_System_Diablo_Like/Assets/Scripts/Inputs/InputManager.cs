@@ -28,13 +28,14 @@ namespace Assets.Scripts.Inputs
 
         #region Consts
 
+        private const KeyCode RESTART_EQUIPED_ITEMS = KeyCode.R;
+        private const KeyCode OPEN_INVENTORY = KeyCode.I;
+        private const KeyCode ADD_RANDOM_ITEM = KeyCode.Space;
+
         private const string ADD_HEALTH_KEY = "=";
         private const string DECREASE_HEALTH_KEY = "-";
         private const string ADD_MANA_KEY = "[";
         private const string DECREASE_MANA_KEY = "]";
-
-        private const KeyCode OPEN_INVENTORY = KeyCode.I;
-        private const KeyCode ADD_RANDOM_ITEM = KeyCode.Space;
         private const string QUICK_ACCESS_SLOT_ONE = "1";
         private const string QUICK_ACCESS_SLOT_TWO = "2";
         private const string QUICK_ACCESS_SLOT_THREE = "3";
@@ -44,12 +45,20 @@ namespace Assets.Scripts.Inputs
 
         #region Metods
 
+        private void Start()
+        {
+            var playerModel = SetPlayerModel();
+            playerModel.SetConsumableItemsList();
+        }
+
         private void Update()
         {
             HealthHandler();
             ManaHandler();
             InventoryAreaHandler();
             EquipRandomItemToInventoryArea();
+            AssignToQuickAccessSlots();
+            RestartEquipedItems();
         }
 
         private PlayerModel SetPlayerModel()
@@ -105,10 +114,33 @@ namespace Assets.Scripts.Inputs
 
         private void AssignToQuickAccessSlots()
         {
-            switch ("")
+            var playerModel = SetPlayerModel();
+
+            if (Input.GetKeyDown(QUICK_ACCESS_SLOT_ONE))
             {
-                default:
-                    break;
+                playerModel.EquipQuickAccessSlotOne();
+            }
+            else if (Input.GetKeyDown(QUICK_ACCESS_SLOT_TWO))
+            {
+                playerModel.EquipQuickAccessSlotTwo();
+            }
+            else if (Input.GetKeyDown(QUICK_ACCESS_SLOT_THREE))
+            {
+                playerModel.EquipQuickAccessSlotThree();
+            }
+            else if (Input.GetKeyDown(QUICK_ACCESS_SLOT_FOUR))
+            {
+                playerModel.EquipQuickAccessSlotFour();
+            }
+        }
+
+        private void RestartEquipedItems()
+        {
+            var playerModel = SetPlayerModel();
+
+            if (Input.GetKeyDown(RESTART_EQUIPED_ITEMS))
+            {
+                playerModel.RestartEquipedItems();
             }
         }
 
